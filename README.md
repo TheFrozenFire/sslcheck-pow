@@ -171,3 +171,8 @@ Common Questions
 
 Open Considerations
 -------------------
+
+* What format will the auditor payload take? The stupid-simple PoC in this repo
+  uses JSON, but that's beyond unsuitable for a transport layer protocol. Some
+  sort of binary protocol would be preferred for brevity. Examples of other
+  syntaxes used in TLS should be looked at.
