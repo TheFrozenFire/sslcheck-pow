@@ -91,7 +91,7 @@ Examples of such action would be:
 Common Questions
 ----------------
 
-* Q: Doesn't TLS already automatically do what these scans do?
+* Q: Doesn't TLS already automatically do what these scans do?  
   A: To some extent, yes. TLS can usually be configured to restrict what
      cipher suites it supports. It also has existing extensions for doing things
      like OCSP stapling.  
@@ -108,7 +108,7 @@ Common Questions
      confirm that third-party authorities have verified that they are not
      vulnerable to known attacks.
 
-* Q: Can't these results be forged/tampered with?
+* Q: Can't these results be forged/tampered with?  
   A: Maybe. A service could conceivably redirect scanning services to a separate
      server with a "good" configuration, while their actual client-facing
      servers are vulnerable.  
@@ -120,7 +120,7 @@ Common Questions
      they scanned was using. If the client can verify this fingerprint, they
      can detect any such forgery.
 
-* Q: Are the scan services willing to take on this additional load?
+* Q: Are the scan services willing to take on this additional load?  
   A: Again, maybe. If every server in the world that uses SSL started hammering
      them with requests every day, today, they might put a stop to it. But,
      as with all sorts of demand, supply will increase to meet it.  
@@ -134,7 +134,7 @@ Common Questions
      I believe, however, that the gains well outweigh the risk, in that respect.
 
 * Q: What happens if the server doesn't support it (or has no audit provider
-     overlap)?
+     overlap)?  
   A: The same thing that happens if the scans fail, presumably. It is indeed
      a limitation of this proposal for now, but I think that until support
      for this functionality was widespread, all clients would simply treat
