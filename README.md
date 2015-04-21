@@ -49,14 +49,10 @@ would be included indicating that the client requests audit proof.
 
 ### Server Performs Handshake
 
-As part of the server's ServerHello phase of the TLS handshake, it inspects
-the list of pubkey hashes included in the ClientHello and compares them to its
-own list of supported scan services.
-
-For any intersection of the two, the payload and signature stored previously
-will be included in the ServerHello and proceeds as normal. If none of the
-scan services indicated by the client are supported, an empty TLS extension
-data will be returned.
+As part of the server's ServerHello phase of the TLS handshake, it determines
+what audit payloads to return according to whatever trust model is adopted
+(see below). If no audit payloads are supported by the client, an empty
+response is returned.
 
 ### Client Verifies Handshake
 
