@@ -45,9 +45,7 @@ the server's TLS configuration.
 ### Client Performs Handshake
 
 As part of the client's ClientHello phase of the TLS handshake, an extension
-would be included indicating that the client requests audit proof. The
-data portion of this extension would consist of a list of hashed public keys
-for the services that the client trusts to perform scans of services.
+would be included indicating that the client requests audit proof.
 
 ### Server Performs Handshake
 
@@ -87,6 +85,40 @@ Examples of such action would be:
 * Display a positive indicator to the user
 * Prompt the user to continue
 * Abort the connection entirely (particularly in an automated context)
+
+Trust Model
+-----------
+
+A few different trust models might be considered. Each has benefits and
+detriments.
+
+* The data portion of this extension could consist of a list of hashed public
+  keys for the services that the client trusts to perform scans of services.  
+  The issue with this is that it effectively creates a requirement for a novel
+  trust store, duplicating the purpose of the trust chain that already exists
+  for certificates.  
+  However, this increases the choice that server operators would have in
+  selecting which auditors they support, as well as the client's choice in which
+  auditors they trust.
+* The issuing CA for the server's host certificate could also sign certificates
+  for the auditors which includes an
+  [extended key usage](https://en.wikipedia.org/wiki/X.509#Extensions_informing_a_specific_usage_of_a_certificate).  
+  The issue here is that not all issuing CAs will take the time to do this
+  signing, and not all auditors will bother to request it of all issuing CAs.
+  This could, however, be mitigated by clients simply including an auditor
+  certificate bundle on their system.  
+  The benefit would be that a bad actor would have less of a chance to
+  inject a compromised auditor into the trust chain.
+* Any CA could sign any auditor for the extended key usage.  
+  The detriment of this is fairly obvious. Just as bad certificate issuers
+  sometimes get into the trust chain, so could bad auditors.  
+  The benefit, however, would be ubiquitous support for more auditors, providing
+  some semblance of choice.
+
+A common issue for the latter two choices would be that the server would have
+no indication as to what the client prefers. This would mean that the server
+would have to simply include results from any or all auditors in order to
+guarantee that at least some results would be supported by the client.
 
 Common Questions
 ----------------
@@ -140,3 +172,6 @@ Common Questions
      for this functionality was widespread, all clients would simply treat
      positive results as a positive indicator, as opposed to treating no results
      as a reason to abort.
+
+Open Considerations
+-------------------
