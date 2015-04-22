@@ -1,9 +1,9 @@
-SSL Configuration Auditing Proof of Work Extension
-==================================================
+TLS Configuration Audit Stapling Extension
+==========================================
 
 In this repository is the preliminary braindump of my proposal for a TLS
 extension which provides the facility for TLS clients to request that the
-server return proof of work demonstrating their due diligence in performing
+server staple proof of work demonstrating their due diligence in performing
 regular audits of their TLS configuration.
 
 If you have suggestions on how to improve/refine/simplify this proposal, please
