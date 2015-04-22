@@ -6,6 +6,9 @@ extension which provides the facility for TLS clients to request that the
 server staple proof of work demonstrating their due diligence in performing
 regular audits of their TLS configuration.
 
+Given the similarity of this proposal's purpose to OCSP, most of the semantics
+of OCSP can be assumed to apply.
+
 If you have suggestions on how to improve/refine/simplify this proposal, please
 feel free to create issues in this repository's issue tracker. While this is
 not yet a formal RFC by any means, feedback is appreciated.
@@ -18,7 +21,7 @@ Proposed Handshake Flow
 As a scheduled task, the server executes requests to third-party TLS
 scan services (e.g. [SSLLabs](https://www.ssllabs.com/ssltest/)). In the
 response that these services provide, they would include an "audit payload" in
-a standardized format.
+a [DER format](https://en.wikipedia.org/wiki/X.690#DER_encoding).
 
 This payload would include required information:
 
@@ -29,7 +32,7 @@ This payload would include required information:
   the scan was)
 * A score on the scale of 0-100, defined by their own metrics
 
-The payload could also include additions (akin to TLS extensions themselves)
+The payload could also include additions (akin to OCSP extensions)
 such as the IP addresses that were audited, certificate hostnames that were
 valid, and perhaps some sort of fingerprint to be used later to determine
 whether the scanned TLS configuration matches what the client eventually
@@ -168,11 +171,3 @@ Common Questions
      for this functionality was widespread, all clients would simply treat
      positive results as a positive indicator, as opposed to treating no results
      as a reason to abort.
-
-Open Considerations
--------------------
-
-* What format will the auditor payload take? The stupid-simple PoC in this repo
-  uses JSON, but that's beyond unsuitable for a transport layer protocol. Some
-  sort of binary protocol would be preferred for brevity. Examples of other
-  syntaxes used in TLS should be looked at.
