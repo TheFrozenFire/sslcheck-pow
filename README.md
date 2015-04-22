@@ -15,7 +15,7 @@ Proposed Handshake Flow
 
 ### Server Executes Audits
 
-As a scheduled task, the server executes requests to third-party TLS/SSL
+As a scheduled task, the server executes requests to third-party TLS
 scan services (e.g. [SSLLabs](https://www.ssllabs.com/ssltest/)). In the
 response that these services provide, they would include an "audit payload" in
 a standardized format.
@@ -32,7 +32,7 @@ This payload would include required information:
 The payload could also include additions (akin to TLS extensions themselves)
 such as the IP addresses that were audited, certificate hostnames that were
 valid, and perhaps some sort of fingerprint to be used later to determine
-whether the scanned SSL configuration matches what the client eventually
+whether the scanned TLS configuration matches what the client eventually
 connects to.
 
 In addition to this payload, they would include a signature for the payload,
@@ -71,7 +71,7 @@ Example verifications would be as follows (but none are required):
 * The score provided is above a given threshold
 * The IP address to which the client is connected is in the returned list
 * The certificate hostnames match what is known
-* The host SSL configuration has not since changed
+* The host TLS configuration has not since changed
 
 Based on these factors, the client can then take preferred action.
 
@@ -125,7 +125,7 @@ Common Questions
      like OCSP stapling.  
      However, for other vulnerability factors like downgrade and timing attacks,
      it is too resource intensive for the client to perform these checks itself.
-     Any additional negotiation reduces SSL performance. By delegating this
+     Any additional negotiation reduces TLS performance. By delegating this
      auditing to the server and requiring proof of that work, we can limit the
      additional negotiation.  
      Additionally, so far as I know, TLS has no built-in facility or extensions
@@ -144,12 +144,12 @@ Common Questions
      providers could instead direct that time spent to actually fixing their
      configurations.  
      Additionally, as indicated in the proposed payload, a service could
-     somehow provide a "fingerprint" of the SSL configuration that the host
+     somehow provide a "fingerprint" of the TLS configuration that the host
      they scanned was using. If the client can verify this fingerprint, they
      can detect any such forgery.
 
 * Q: Are the scan services willing to take on this additional load?  
-  A: Again, maybe. If every server in the world that uses SSL started hammering
+  A: Again, maybe. If every server in the world that uses TLS started hammering
      them with requests every day, today, they might put a stop to it. But,
      as with all sorts of demand, supply will increase to meet it.  
      I would foresee paid services offering audit prioritization cropping up,
@@ -157,7 +157,7 @@ Common Questions
      more reliable detection of new vulnerabilities, earlier-on.  
      One would hope that free services would also exist in some capacity, but
      I would admit outright that there is the potential for this to become the
-     same sort of mess as exists with SSL certificates. Clients might not
+     same sort of mess as exists with TLS certificates. Clients might not
      accept scans from those "free" audit services, because of perception.  
      I believe, however, that the gains well outweigh the risk, in that respect.
 
